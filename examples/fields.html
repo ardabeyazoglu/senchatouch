@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Field examples</title>
+    <link rel="stylesheet" type="text/css" href="../library/touch-2.3.1/resources/css/cupertino.css">
+    <script type="text/javascript" src="../library/touch-2.3.1/sencha-touch-all.js"></script>
+
+    <script type="text/javascript" src="../field/MultiSelect.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    Ext.onReady(function(){
+        Ext.application({
+            name: 'fields',
+
+            launch: function(){
+                Ext.Viewport.add({
+                    xtype: 'container',
+                    layout: 'fit',
+                    items: [
+                        {
+                            xtype: 'titlebar',
+                            title: 'Examples of Custom Fields',
+                            docked: 'top'
+                        },
+                        {
+                            xtype: 'formpanel',
+                            padding: 10,
+                            defaults: {
+                                xtype: 'fieldset',
+                                maxWidth: 600
+                            },
+                            items: [
+                                {
+                                    title: 'Multi Select Field',
+                                    items: [
+                                        {
+                                            xtype: 'multiselectfield',
+                                            id: 'multiselectfield',
+                                            label: 'Multi Select Field',
+                                            name: 'multiselect',
+                                            placeHolder: 'Choose',
+                                            clearIcon: true,
+                                            store: {
+                                                fields: ['id', 'label'],
+                                                data: [
+                                                    {id:1, label:'Option 1'},
+                                                    {id:2, label:'Option 2'},
+                                                    {id:3, label:'Option 3'},
+                                                    {id:4, label:'Option 4'},
+                                                    {id:5, label:'Option 5'},
+                                                    {id:6, label:'Option 6'}
+                                                ]
+                                            },
+                                            valueField: 'id',
+                                            displayField: 'label'
+                                        },
+                                        {
+                                            xtype: 'toolbar',
+                                            docked: 'bottom',
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    text: 'getValue',
+                                                    handler: function(){
+                                                        var field = Ext.getCmp("multiselectfield");
+                                                        Ext.Msg.alert(JSON.stringify(field.getValue()));
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    text: 'getDisplayValue',
+                                                    handler: function(){
+                                                        var field = Ext.getCmp("multiselectfield");
+                                                        Ext.Msg.alert(JSON.stringify(field.getDisplayValue()));
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    text: 'setValue([1,3,5])',
+                                                    handler: function(){
+                                                        var field = Ext.getCmp("multiselectfield");
+                                                        field.setValue([1,3,5]);
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
