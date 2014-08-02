@@ -2,10 +2,13 @@
 <html>
 <head>
     <title>Field examples</title>
-    <link rel="stylesheet" type="text/css" href="../library/touch-2.3.1/resources/css/cupertino.css">
-    <script type="text/javascript" src="../library/touch-2.3.1/sencha-touch-all.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="../library/touch-2.3.1/resources/css/cupertino.css">
+    <link rel="stylesheet" type="text/css" href="../plugin/plugins.css">
+
+    <script type="text/javascript" src="../library/touch-2.3.1/sencha-touch-all.js"></script>
     <script type="text/javascript" src="../field/MultiSelect.js"></script>
+    <script type="text/javascript" src="../plugin/Maximizable.js"></script>
 </head>
 <body>
 
@@ -21,19 +24,19 @@
                     items: [
                         {
                             xtype: 'titlebar',
-                            title: 'Examples of Custom Fields',
+                            title: 'Demo Page of Sencha Components',
                             docked: 'top'
                         },
                         {
                             xtype: 'formpanel',
                             padding: 10,
                             defaults: {
-                                xtype: 'fieldset',
-                                maxWidth: 600
+                                xtype: 'fieldset'
                             },
                             items: [
+                                // multi select field example
                                 {
-                                    title: 'Multi Select Field',
+                                    title: 'Fields',
                                     items: [
                                         {
                                             xtype: 'multiselectfield',
@@ -82,6 +85,48 @@
                                                     handler: function(){
                                                         var field = Ext.getCmp("multiselectfield");
                                                         field.setValue([1,3,5]);
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                // maximizable plugin example
+                                {
+                                    xtype: 'container',
+                                    id: 'my-container',
+                                    html: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                                    style: 'margin-top:20px;background-color:#fff;',
+                                    styleHtmlContent: true,
+                                    plugins: [
+                                        {
+                                            xclass: 'Ext.ux.plugin.Maximizable'
+                                        }
+                                    ],
+                                    items: [
+                                        {
+                                            xtype: 'toolbar',
+                                            items: [
+                                                {
+                                                    xtype: 'titlebar',
+                                                    title: 'A simple container',
+                                                    width: 200
+                                                },
+                                                {
+                                                    xtype: 'spacer'
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    iconCls: 'refresh', // minus icon is better
+                                                    handler: function(){
+                                                        Ext.getCmp("my-container").minimize();
+                                                    }
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    iconCls: 'add',
+                                                    handler: function(){
+                                                        Ext.getCmp("my-container").maximize();
                                                     }
                                                 }
                                             ]
