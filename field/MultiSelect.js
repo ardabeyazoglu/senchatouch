@@ -3,7 +3,7 @@
  * Copyright(c) 2014 Arda Beyazoglu
  * MIT Licensed
  */
-Ext.define('kiva.field.MultiSelect', {
+Ext.define('Ext.ux.field.MultiSelect', {
     extend: 'Ext.field.Select',
 
     xtype: 'multiselectfield',
