@@ -1,7 +1,8 @@
-/*
- * Sencha Touch select field with multiple selection
- * Copyright(c) 2014 Arda Beyazoglu
- * MIT Licensed
+/**
+ * Sencha Touch maximizable plugin
+ * @version 1.0
+ * @copyright (c) 2014 Arda Beyazoglu
+ * @licence MIT licensed
  */
 Ext.define('Ext.ux.plugin.Maximizable', {
     mixins: ['Ext.mixin.Observable'],
