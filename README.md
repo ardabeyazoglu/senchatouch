@@ -8,3 +8,5 @@ Sencha Touch Plugins
 
 * Maximizable Plugin
     * Adds maximize feature to components, to make them fullscreen
+
+See the [demo page](http://ardabeyazoglu.com/works/sencha/examples/index.html) for examples
