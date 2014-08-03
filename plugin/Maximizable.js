@@ -5,6 +5,8 @@
  * @licence MIT licensed
  */
 Ext.define('Ext.ux.plugin.Maximizable', {
+    extend: 'Ext.Base',
+
     mixins: ['Ext.mixin.Observable'],
 
     config: {
@@ -21,16 +23,21 @@ Ext.define('Ext.ux.plugin.Maximizable', {
         /**
          * @cfg {Boolean} maximized
          */
-        maximized: false
+        maximized: false,
+        /**
+         * @cfg {object} animation while maximizing
+         */
+        maximizeAnimation: "pop",
+        /**
+         * @cfg {object} animation while minimizing
+         */
+        minimizeAnimation: null
     },
 
     constructor: function(config){
         this.callParent(arguments);
 
-        // add listeners support
-        if(config.listeners){
-            this.addListener(config.listeners);
-        }
+        this.initConfig(config);
     },
 
     /**
@@ -61,14 +68,22 @@ Ext.define('Ext.ux.plugin.Maximizable', {
 
         cmp.element.addCls("ux-maximized-cmp");
 
-        cmp.show({
-            type: 'pop',
-            listeners: {
-                animationend: function(){
-                    me.fireEvent("maximized", me, me.getComponent());
+        if(this.getMaximizeAnimation()){
+            var anim = this.getMaximizeAnimation();
+            if(typeof(anim) == "string") anim = {type: anim};
+            Ext.apply(anim, {
+                listeners: {
+                    animationend: function(){
+                        me.fireEvent("maximize", me, me.getComponent());
+                    }
                 }
-            }
-        });
+            });
+
+            cmp.show(anim);
+        }else{
+            cmp.show();
+            this.fireEvent("maximize", this, this.getComponent());
+        }
 
         this.setMaximized(true);
     },
@@ -77,12 +92,31 @@ Ext.define('Ext.ux.plugin.Maximizable', {
      * revert the component layout
      */
     minimize: function(){
-        this.getContainer().add(this.getComponent());
-        this.getComponent().element.removeCls("ux-maximized-cmp");
+        var me = this;
+
+        if(this.getMinimizeAnimation()){
+            var anim = this.getMinimizeAnimation();
+            if(typeof(anim) == "string") anim = {type: anim};
+            Ext.apply(anim, {
+                listeners: {
+                    animationend: function(){
+                        me.getContainer().add(me.getComponent());
+                        me.getComponent().element.removeCls("ux-maximized-cmp");
+
+                        me.fireEvent("minimize", me, me.getComponent());
+                    }
+                }
+            });
+
+            me.getComponent().hide(anim);
+        }else{
+            this.getContainer().add(this.getComponent());
+            this.getComponent().element.removeCls("ux-maximized-cmp");
+
+            this.fireEvent("minimize", this, this.getComponent());
+        }
 
         this.setMaximized(false);
-
-        this.fireEvent("minimized", this, this.getComponent());
     },
 
     /**

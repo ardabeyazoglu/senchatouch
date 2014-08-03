@@ -100,7 +100,8 @@
                                     styleHtmlContent: true,
                                     plugins: [
                                         {
-                                            xclass: 'Ext.ux.plugin.Maximizable'
+                                            xclass: 'Ext.ux.plugin.Maximizable',
+                                            maximizeAnimation: 'popIn'
                                         }
                                     ],
                                     items: [
@@ -117,16 +118,14 @@
                                                 },
                                                 {
                                                     xtype: 'button',
-                                                    iconCls: 'refresh', // minus icon is better
-                                                    handler: function(){
-                                                        Ext.getCmp("my-container").minimize();
-                                                    }
-                                                },
-                                                {
-                                                    xtype: 'button',
                                                     iconCls: 'add',
                                                     handler: function(){
-                                                        Ext.getCmp("my-container").maximize();
+                                                        var cmp = Ext.getCmp("my-container");
+                                                        if(cmp.isMaximized()){
+                                                            cmp.minimize();
+                                                        }else{
+                                                            cmp.maximize();
+                                                        }
                                                     }
                                                 }
                                             ]
