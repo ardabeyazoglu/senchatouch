@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Field examples</title>
+
+    <link rel="stylesheet" type="text/css" href="../library/touch-2.3.1/resources/css/cupertino.css">
+    <link rel="stylesheet" type="text/css" href="examples.css">
+
+    <script type="text/javascript" src="../library/touch-2.3.1/sencha-touch-all.js"></script>
+    <script type="text/javascript" src="../util/Region.js"></script>
+    <script type="text/javascript" src="../util/Draggable.js"></script>
+    <script type="text/javascript" src="../util/Droppable.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    Ext.onReady(function(){
+        Ext.application({
+            name: 'dragdrop',
+
+            launch: function(){
+                Ext.Viewport.add({
+                    xtype: 'container',
+                    layout: 'hbox',
+                    items: [
+                        {
+                            xtype: 'titlebar',
+                            title: 'Demo Page of Sencha Components',
+                            docked: 'top'
+                        },
+                        {
+                            xtype: 'container',
+                            layout: 'vbox',
+                            width: 450,
+                            items: [
+                                {
+                                    xtype: 'container',
+                                    id: 'drag-item-container',
+                                    data: [
+                                        {label:'Drag Item 1'}, {label:'Drag Item 2'}, {label:'Drag Item 3'},
+                                        {label:'Drag Item 4'}, {label:'Drag Item 5'}, {label:'Drag Item 6'}
+                                    ],
+                                    tpl: '<tpl for=".">' +
+                                            '<div class="drag-item">{label}</div>' +
+                                            '</tpl>',
+                                    height: 200,
+                                    width: 400
+                                },
+                                {
+                                    xtype: 'container',
+                                    id: 'drop-container',
+                                    height: 150,
+                                    width: 400,
+                                    html: '',
+                                    items: [
+                                        {
+                                            xtype: 'titlebar',
+                                            title: 'Drop Items Here',
+                                            docked: 'top'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            style: "margin-top:20px;font-size:0.9em;",
+                            html:   "<div>Added 2 new validDropMode options (needs Ext.ux.util.Region):</div>" +
+                                    "<div>* <b>containsVertical:</b> if region contains more than half of the element vertically.</div>" +
+                                    "<div>* <b>containsHorizontal:</b> if region contains more than half of the element horizontally.</div>" +
+                                    "<br><div>Draggable supports <b>revert</b> feature</div>"
+                        }
+                    ]
+                });
+
+                this.initDragDrop();
+            },
+
+            initDragDrop: function(){
+                // init draggables
+                var dragContainer = Ext.getCmp("drag-item-container").element;
+                Ext.each(dragContainer.select(".drag-item").elements, function(node){
+                    var dr = Ext.create('Ext.ux.util.Draggable', {
+                        element: node,
+                        direction: 'both',
+                        group: 'myGroup',
+                        revert: true,
+                        listeners: {
+                            dragstart: function(){
+                                // you can disable scrollable of outer container to prevent touch scroll problems
+                                // then you have to enable it on dragend event
+                            }
+                        }
+                    });
+
+                    dr.setConstraint({
+                        min: { x: -Infinity, y: -Infinity },
+                        max: { x: Infinity, y: Infinity }
+                    });
+                });
+
+                // init droppables
+                var dropContainer = Ext.getCmp("drop-container").innerElement;
+                Ext.create('Ext.ux.util.Droppable', {
+                    element: dropContainer,
+                    group: 'myGroup',
+                    validDropMode: 'contains',
+                    listeners: {
+                        delay: 50,
+                        drop: function(droppable, draggable){
+                            draggable.getElement().appendTo(droppable.getElement());
+                            draggable.setOffset(0, 0);
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

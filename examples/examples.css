@@ -1,0 +1,47 @@
+/*
+* Maximizable Plugin
+* All properties except 'margin' and 'position' can be changed to your needs
+* e.g. change coordinates to adjust the maximized width and height.
+* If you want to make it fullscreen, set them to 0 and set width=100%,height=100%
+*/
+.ux-maximized-cmp {
+    z-index: 10;
+    box-shadow: 0 0 20px;
+    /*width: 100%;
+    height: 100%;*/
+    margin: auto !important;
+    position: absolute !important;
+    top: 15px;
+    left: 15px;
+    bottom: 15px;
+    right: 15px;
+}
+
+/* Drag & Drop */
+#drag-item-container {
+    border: 1px solid #ccc;
+    margin: 20px;
+}
+
+.drag-item {
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #a2e306;
+    padding: 3px;
+    float: left;
+    margin: 5px;
+    z-index: 5;
+}
+
+.drag-item.x-dragging {
+    background-color: #7CAD00;
+}
+
+#drop-container {
+    border: 1px solid #ccc;
+    margin: 0 20px;
+}
+
+#drop-container .x-inner.x-drop-hover {
+    background-color: #A4D7F2;
+}
