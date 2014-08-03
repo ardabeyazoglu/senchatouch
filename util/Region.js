@@ -1,3 +1,9 @@
+/**
+ * Sencha Touch region utility with new drop modes
+ * @version 1.0
+ * @copyright (c) 2014 Arda Beyazoglu
+ * @licence MIT licensed
+ */
 Ext.define('Ext.ux.util.Region', {
     override: 'Ext.util.Region',
 

@@ -1,3 +1,9 @@
+/**
+ * Sencha Touch draggable extension with element based dragging
+ * @version 1.0
+ * @copyright (c) 2014 Arda Beyazoglu
+ * @licence MIT licensed
+ */
 Ext.define('Ext.ux.util.Draggable', {
     extend: 'Ext.util.Draggable',
 

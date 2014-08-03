@@ -1,3 +1,9 @@
+/**
+ * Sencha Touch droppable extension
+ * @version 1.0
+ * @copyright (c) 2014 Arda Beyazoglu
+ * @licence MIT licensed
+ */
 Ext.define('Ext.ux.util.Droppable', {
     mixins: {
         observable: 'Ext.mixin.Observable'
