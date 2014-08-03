@@ -2,16 +2,24 @@ Ext.define('Ext.ux.util.Draggable', {
     extend: 'Ext.util.Draggable',
 
     config: {
-        revert: false
+        /**
+         * @cfg {bool} true to revert drag operation if drop not allowed
+         */
+        revert: false,
+
+        /**
+         * @cfg {string} group
+         */
+        group: 'base'
     },
 
     constructor: function(config) {
         this.callParent(arguments);
 
-        if(config.group){
-            this.group = config.group;
-        }
+        // compatibility
+        this.group = this.getGroup();
 
+        // init global draggable cache
         if(!Ext.Draggables){
             Ext.Draggables = {};
         }
@@ -26,12 +34,18 @@ Ext.define('Ext.ux.util.Draggable', {
         return this;
     },
 
+    /**
+     * destroy draggable
+     */
     destroy: function(){
         this.callParent(arguments);
 
         delete Ext.Draggables[this.draggableIndex];
     },
 
+    /**
+     * on drag start
+     */
     onDragStart: function(){
         this.callParent(arguments);
 
@@ -39,6 +53,10 @@ Ext.define('Ext.ux.util.Draggable', {
         this.oldContainer = this.getElement().parent();
     },
 
+    /**
+     * on drag end
+     * @param e
+     */
     onDragEnd: function(e) {
         if (!this.isDragging) {
             return;
@@ -51,6 +69,7 @@ Ext.define('Ext.ux.util.Draggable', {
 
         this.fireEvent('dragend', this, e, this.offset.x, this.offset.y);
 
+        // revert back ?
         if(this.getRevert() && !this.dropAllowed){
             this.setOffset(this.dragStartOffset.x, this.dragStartOffset.y, {
                 duration: 250
