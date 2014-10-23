@@ -156,7 +156,7 @@ Ext.define('Ext.ux.field.MultiSelect', {
         this._selectedRecords = [];
 
         if(value){
-            var ids = typeof(value) == 'string' ? [value] : value;
+            var ids = typeof(value) != 'object' ? value.split(",") : value;
             for(var key in ids){
                 if(ids.hasOwnProperty(key)){
                     var rc = this.getStore().findRecord(this.getValueField(), ids[key]);
